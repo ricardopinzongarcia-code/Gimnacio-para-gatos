@@ -1,0 +1,5 @@
+Conecta el Arduino por USB.
+En Arduino IDE, selecciona Arduino Uno en el menú de placas y el puerto COM correspondiente.
+Pulsa el botón de subir código (la flecha hacia la derecha).
+Espera a que termine la carga.Este programa mide la distancia y envía un número por USB cada 100 milisegundos. Por ejemplo, 45 significa que el objeto está aproximadamente a 45 cm; 999 indica que no se recibió un eco válido dentro del tiempo de espera
+¿Cómo se conecta este código con el de Processing?Ahora viene la parte interesante. Tu código original ya tiene casi toda la lógica necesaria.
