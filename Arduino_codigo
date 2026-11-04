@@ -1,0 +1,32 @@
+const int TRIG = 9;
+const int ECHO = 10;
+
+void setup() {
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Enviar pulso al sensor
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+
+  // Medir el tiempo de regreso del eco
+  long duracion = pulseIn(ECHO, HIGH, 30000);
+
+  // Convertir el tiempo en centímetros
+  if (duracion == 0) {
+    Serial.println(999);
+  } else {
+    int distancia = duracion * 0.0343 / 2;
+    Serial.println(distancia);
+  }
+
+  delay(100);
+}
