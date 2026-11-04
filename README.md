@@ -165,6 +165,7 @@ void draw() {
 5. ¿Cómo se conecta este código con el de Processing?Ahora viene la parte interesante. Tu código original ya tiene casi toda la lógica necesaria.
 
 # Operaciones
+
 | | |
 |---|---|
 | **Parte del codigo** | ¿Que hace? |
@@ -185,4 +186,20 @@ void draw() {
 | **Arduino** |  Arduino UNO R3 |
 | **Sensor de proximidad** | HC-SR04 |
 | **Proyector** | sin establecer |
+
+# Agradecimientos
+Mil gracias al equipo de trabajo, al Profesor Renzo rospligliosi, y a la clase por el acompañamiento en este proceso de aprendizaje.
+
+# Contactos
+Ricardo Pinzon Garcia
+[rick_richi_rich](https://www.instagram.com/rick_richi_rich/)
+Bogotá, Colombia
+
+Ruben Perez
+[renderdraw95](https://www.instagram.com/renderdraw95/)
+Bogotá, Colombia
+
+Nathalia Alba
+[Nathalia_Alba](https://www.instagram.com/renderdraw95/)
+Bogotá, Colombia
 
