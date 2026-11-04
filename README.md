@@ -199,7 +199,7 @@ Ruben Perez
 [renderdraw95](https://www.instagram.com/renderdraw95/)
 Bogotá, Colombia
 
-Nathalia Alba
+Nathalia Alba Miranda
 [Nathalia_Alba](https://www.instagram.com/renderdraw95/)
 Bogotá, Colombia
 
