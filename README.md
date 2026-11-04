@@ -43,7 +43,7 @@ void loop() {
 
 # Codigo-Processing
 
-import processing.serial.*;
+[2:22 p.m., 4/11/2026] +57 319 2188294: import processing.serial.*;
 import processing.video.*;
 
 Serial myPort;
@@ -52,22 +52,24 @@ Movie[] videos = new Movie[3];
 
 String[] archivos = {
   "NWTD.mp4",
-  "TAME.mp4",
-  "TRACK.mp4"
+  "ESTIMULO.mp4",
+  "NAT1.mp4"
 };
 
 int distancia = 999;
 int UMBRAL = 100;
+int RESET = 120;
 
 int videoActual = -1;
 
 boolean personaPresente = false;
+boolean reproduciendo = false;
 
 void setup() {
   size(1280, 720);
   pixelDensity(1);
 
-  // Cargar los tres vídeos
+  // Cargar los cuatro videos
   for (int i = 0; i < videos.length; i++) {
     videos[i] = new Movie(this, archivos[i]);
     videos[i].pause();
@@ -80,7 +82,7 @@ void setup() {
   myPort.bufferUntil('\n');
 }
 
-// Leer los vídeos
+// Leer los videos
 void movieEvent(Movie m) {
   m.read();
 }
@@ -100,42 +102,40 @@ void serialEvent(Serial p) {
 
       println("Distancia: " + distancia + " cm");
 
-      // Detectar acercamiento
+      // Detectar cuando alguien se aleja
+      if (distancia == 999 || distancia > RESET) {
+        personaPresente = false;
+      }
+
+      // Detectar una nueva persona
       if (distancia > 0 &&
           distancia != 999 &&
           distancia <= UMBRAL) {
 
-        // Solo cambiar cuando alguien acaba de acercarse
         if (!personaPresente) {
 
           personaPresente = true;
 
-          // Pasar al siguiente vídeo
+          // Detener video anterior
+          if (videoActual >= 0) {
+            videos[videoActual].pause();
+            videos[videoActual].jump(0);
+          }
+
+          // Pasar al siguiente video
           videoActual++;
 
           if (videoActual >= videos.length) {
             videoActual = 0;
           }
 
-          // Reproducir vídeo seleccionado
+          // Reproducir inmediatamente el nuevo video
+          videos[videoActual].jump(0);
           videos[videoActual].play();
 
+          reproduciendo = true;
+
           println("Reproduciendo: " + archivos[videoActual]);
-        }
-
-      } else {
-
-        // Detectar cuando alguien se aleja
-        if (personaPresente) {
-
-          personaPresente = false;
-
-          // Pausar el vídeo actual
-          if (videoActual >= 0) {
-            videos[videoActual].pause();
-          }
-
-          println("Vídeo pausado");
         }
       }
 
@@ -145,18 +145,62 @@ void serialEvent(Serial p) {
   }
 }
 
-// Mostrar vídeo
+// Mostrar video
 void draw() {
 
   background(0);
 
-  if (videoActual >= 0) {
+  if (videoActual >= 0 && reproduciendo) {
 
+    Movie video = videos[videoActual];
 
-    if (videos[videoActual].width > 0) {
-      image(videos[videoActual], 0, 0, width, height);
+    if (video.width > 0) {
+      image(video, 0, 0, width, height);
+    }
+
+    // Detectar final del video
+    if (video.duration() > 0 &&
+        video.time() >= video.duration() - 0.1) {
+
+      video.pause();
+      video.jump(0);
+
+      reproduciendo = false;
+
+      println("Video finalizado. Esperando siguiente persona.");
     }
   }
+}
+[2:23 p.m., 4/11/2026] +57 319 2188294: ARDUINO
+[2:23 p.m., 4/11/2026] +57 319 2188294: const int TRIG = 9;
+const int ECHO = 10;
+
+void setup() {
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+
+  long duracion = pulseIn(ECHO, HIGH, 30000);
+
+  if (duracion == 0) {
+    Serial.println(999);
+  } else {
+    int distancia = duracion * 0.0343 / 2;
+    Serial.println(distancia);
+  }
+
+  delay(100);
 }
 
 
