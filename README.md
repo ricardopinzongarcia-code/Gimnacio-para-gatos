@@ -42,12 +42,6 @@ void loop() {
 
 
 # Codigo-Processing
-
-<p align="center">
-  <img src="PROCESAMIENTO_PANTALLA.jfif" width="60%">
-</p>
-
-[2:22 p.m., 4/11/2026] +57 319 2188294:
 import processing.serial.*;
 import processing.video.*;
 
