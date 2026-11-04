@@ -1,5 +1,7 @@
 # Gimnacio-para-gatos
-
+<p align="center">
+  <img src="GATO_PANTALLA.png" width="60%">
+</p>
 Un pequeño circuito electrico para entretener a nuestros gatos en casa bajo nuestra ausencia.
 
 # Codigo-Arduino
